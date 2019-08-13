@@ -10,7 +10,7 @@ var userInput = function (question) {
   var answer = prompt(question);
   answer = answer.toLowerCase();
   while (!(answer === 'yes' || answer === 'no' || answer === 'y' || answer === 'n')) {
-    answer = prompt('I\'m sorry, I didn\'t quite get your answer, can you please try again using only yes and no?');
+    answer = prompt('I\'m sorry, I didn\'t quite get your answer, can you please try again using only yes and no?  ' + question);
   }
   if(answer.toLowerCase() === 'y') {
     answer = 'yes';
@@ -51,7 +51,7 @@ var playButtonEl = document.getElementById('play-game');
 
 var guessingGame = function () {
   //guessing game
-  alert('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me and you\'ll have to guess whether it\'s true or not. Please use only yes and no to answer the quesions');
+  alert('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not. Please use only YES or NO to answer the questions');
   //list of questions (8 in total)
   correctAnswersCount = 0;
   var studiedTribology = userInput('I spent 5 years studying tribology');
@@ -91,7 +91,7 @@ var guessingGame = function () {
   } else if (correctAnswersCount > 3) {
     alert('Pretty close, ' + userName + '! You\'ve got ' + correctAnswersCount + ' out of 8 correct answers, try again');
   } else {
-    alert('You\'ve got ' + correctAnswersCount + ' out of 8 correct answers, cheer up, ' + userName + ', I\'m sure you can get more next time!');
+    alert('You\'ve got ' + correctAnswersCount + ' out of 8 correct answers. Cheer up, ' + userName + '! I\'m sure you can get more next time! :-)');
   }
 };
 playButtonEl.addEventListener('click', guessingGame);
