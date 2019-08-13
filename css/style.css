@@ -29,6 +29,13 @@ nav li a {
   padding: 14px 16px;
   text-decoration: none;
 }
+#user-name {
+  color: white;
+  text-align: center;
+  float: right;
+  padding: 14px 16px;
+  text-decoration: none;
+}
 nav li a:hover {
   background-color: #111;
 }

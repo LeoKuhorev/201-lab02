@@ -32,12 +32,19 @@ var answerVerification = function (question){
   }
 };
 
-//ask user to enter their name, if name is not entered call them 'guest'
-var userName = prompt('Welcome to my page! What\'s your name?');
-if (userName === null || userName === '') {
-  userName = 'guest';
-}
-console.log('the username is ' + userName);
+//change user name by clicking change name button, otherwise show as guest
+var userName = 'guest';
+var userNameEl = document.getElementById('user-name');
+var changeNameEl = document.getElementById('add-name');
+var changeUserName = function () {
+  userName = prompt('Welcome to my page! What\'s your name?');
+  if (userName === null || userName === '') {
+    userName = 'guest';
+  }
+  userNameEl.textContent = 'Welcome ' + userName + '!';
+  console.log('the username is ' + userName);
+};
+changeNameEl.addEventListener('click', changeUserName);
 
 //create a function that starts guessing game when play button is clicked
 var playButtonEl = document.getElementById('play-game');
