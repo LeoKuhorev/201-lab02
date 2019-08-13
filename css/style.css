@@ -1,6 +1,72 @@
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
 body {
   background-color: b6d5f2;
 }
+header {
+  position: fixed;
+  height: 2.5rem;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+nav li {
+  float: left;
+}
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+nav li a:hover {
+  background-color: #111;
+}
+.active {
+  background-color: #4CAF50;
+}
+main {
+  padding-bottom: 2.5rem;
+  padding-top: 2.5rem;
+}
 #mainImage img {
   width: 100%;
+}
+#about img {
+  /* float: left; */
+  width: 200px;
+  border-radius: 50%;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+footer li {
+  float: right;
+}
+footer li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }
