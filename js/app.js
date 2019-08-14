@@ -3,6 +3,7 @@
 //declaring global variables
 var answerStatus; //correct or incorrect answer
 var correctAnswersCount; //stores number of correct answers
+// var timer; //timer for the guessing game
 
 //array with questions
 var questions = ['I spent 5 years studying tribology', 'My parked car was almost destroyed by an old lady a few weeks ago', 'I have a collection of 50 rare butterflies', 'I used to have 8 cats', 'I climbed Elbrus last year', 'I spent 3 nights in Mojave Desert in Nevada because my car broke down', 'I jumped with parachute', 'I hate dust so I vacuum every day no matter what'];
@@ -60,12 +61,16 @@ var playButtonEl = document.getElementById('play-game');
 
 //guessing game function
 var guessingGame = function () {
+  // timer = 0;
+  // console.log('entering function timer = ' + timer);
+  // timer = window.setInterval(function(){timer++;console.log('inside setInterval function timer = ' + timer);}, 1000); //something is wrong here - return value of 26
   alert('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not. Please use only YES or NO to answer the questions');
   correctAnswersCount = 0;
   for (var i = 0; i < questions.length; i++) {
     var question = userInput(questions[i]);
     answerVerification(question, correctAnswers[i]);
     console.log('Question ' + (i + 1) +': "' + questions[i] + '". User answer: ' + question + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
+    // console.log('inside for loop timer = ' + timer);
   }
   //notifying user about the game score
   if(correctAnswersCount > 5) {
@@ -75,5 +80,7 @@ var guessingGame = function () {
   } else {
     alert('You\'ve got ' + correctAnswersCount + ' out of ' + questions.length + ' correct answers. Cheer up, ' + userName + '! I\'m sure you can get more next time! :-)');
   }
+  // console.log('exiting function timer = ' + timer);
+  // window.clearInterval(timer);
 };
 playButtonEl.addEventListener('click', guessingGame);
