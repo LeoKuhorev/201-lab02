@@ -58,6 +58,7 @@ changeNameEl.addEventListener('click', changeUserName);
 
 //create a function that starts guessing game when play button is clicked
 var playButtonEl = document.getElementById('play-game');
+var scoreEl = document.getElementById('score');
 
 //guessing game function
 var guessingGame = function () {
@@ -80,6 +81,8 @@ var guessingGame = function () {
   } else {
     alert('You\'ve got ' + correctAnswersCount + ' out of ' + questions.length + ' correct answers. Cheer up, ' + userName + '! I\'m sure you can get more next time! :-)');
   }
+  playButtonEl.textContent = 'PLAY AGAIN';
+  scoreEl.innerHTML = '<br> Your last result is: '+ correctAnswersCount + ' correct answers out of ' + questions.length + ' questions. Do you want to play again?  ';
   // console.log('exiting function timer = ' + timer);
   // window.clearInterval(timer);
 };
