@@ -33,20 +33,24 @@ nav li a {
 }
 #user-name {
   color: white;
+  /* padding: 14px 16px; <-- will add this in js when change name button is clicked. otherwise this will increase buttons padding */
   text-align: center;
   float: right;
-  padding: 14px 16px;
   text-decoration: none;
 }
 #add-name{
   background-color: #4CAF50; 
   border: none;
   color: white;
-  padding: 0;
+  margin-left: 10px;
+  padding: 14px 16px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+}
+#add-name:hover {
+  background-color: #111;
 }
 nav li a:hover {
   background-color: #111;
@@ -72,9 +76,11 @@ main {
   margin-right: auto;
 }
 #about p {
+  text-align: justify;
+  text-justify: inter-word;
   padding: 80px;
   font-size: 18pt;
-  line-height: 22pt;
+  line-height: 28pt;
 }
 #my-photo img {
   float: left;
@@ -83,11 +89,11 @@ main {
   margin: 50px;
 }
 #play-game{
-  background-color: #333; 
+  background-color:#4CAF50; 
   border: none;
   border-radius: 10%;
   color: white;
-  margin: 10px;
+  margin-left: 10px;
   padding: 10px 10px;
   text-align: center;
   text-decoration: none;
@@ -99,6 +105,7 @@ main {
 }
 h3 {
   font-size: 20pt;
+  font-weight: bold;
   text-align: center;
 }
 #projects ul {

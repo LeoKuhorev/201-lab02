@@ -1,11 +1,11 @@
 'use strict';
 
-//declaring variables
+//declaring global variables
 var answerStatus; //correct or incorrect answer
 var correctAnswersCount; //stores number of correct answers
 var correctAnswer; //stores correct answer for each question
 
-// create a function that will allow only yes or no answers and replace y/n to yes/no
+// create a function that will allow only yes or no answers and replace y/n with yes/no
 var userInput = function (question) {
   var answer = prompt(question);
   answer = answer.toLowerCase();
@@ -34,15 +34,17 @@ var answerVerification = function (question){
 
 //change user name by clicking change name button, otherwise show as guest
 var userName = 'guest';
-var userNameEl = document.getElementById('user-name');
-var userNameEl2 = document.getElementById('user-name2');
-var changeNameEl = document.getElementById('add-name');
+var userNameEl = document.getElementById('user-name'); //right top corner
+var userNameEl2 = document.getElementById('user-name2'); // #about p
+var changeNameEl = document.getElementById('add-name'); //change name button
+
 var changeUserName = function () {
   userName = prompt('Welcome to my page! What\'s your name?');
   if (userName === null || userName === '') {
     userName = 'guest';
   }
   userNameEl.textContent = 'Welcome ' + userName + '!';
+  userNameEl.style.padding = '14px 16px';
   userNameEl2.textContent = userName;
   console.log('the username is ' + userName);
 };
@@ -51,10 +53,10 @@ changeNameEl.addEventListener('click', changeUserName);
 //create a function that starts guessing game when play button is clicked
 var playButtonEl = document.getElementById('play-game');
 
+//guessing game function
 var guessingGame = function () {
-  //guessing game
   alert('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not. Please use only YES or NO to answer the questions');
-  //list of questions (8 in total)
+  //list of questions (8 in total) *** turn into array and loop when get a chance***
   correctAnswersCount = 0;
   var studiedTribology = userInput('I spent 5 years studying tribology');
   correctAnswer = 'yes';
