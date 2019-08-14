@@ -8,8 +8,7 @@ var correctAnswer; //stores correct answer for each question
 // create a function that will allow only yes or no answers and replace y/n with yes/no
 var userInput = function (question) {
   var answer = prompt(question);
-  answer = answer.toLowerCase();
-  while (!(answer === 'yes' || answer === 'no' || answer === 'y' || answer === 'n')) {
+  while (!(answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'no' || answer.toLowerCase() === 'y' || answer.toLowerCase() === 'n')) {
     answer = prompt('I\'m sorry, I didn\'t quite get your answer, can you please try again using only yes and no?  ' + question);
   }
   if(answer.toLowerCase() === 'y') {
