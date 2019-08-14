@@ -35,6 +35,7 @@ var answerVerification = function (question){
 //change user name by clicking change name button, otherwise show as guest
 var userName = 'guest';
 var userNameEl = document.getElementById('user-name');
+var userNameEl2 = document.getElementById('user-name2');
 var changeNameEl = document.getElementById('add-name');
 var changeUserName = function () {
   userName = prompt('Welcome to my page! What\'s your name?');
@@ -42,6 +43,7 @@ var changeUserName = function () {
     userName = 'guest';
   }
   userNameEl.textContent = 'Welcome ' + userName + '!';
+  userNameEl2.textContent = userName;
   console.log('the username is ' + userName);
 };
 changeNameEl.addEventListener('click', changeUserName);
@@ -64,7 +66,7 @@ var guessingGame = function () {
   console.log('Car got crushed? - user answer: ' + crushedCar + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of 8');
   var butterflyCollection = userInput('I have a collection of 50 rare butterflies');
   correctAnswer = 'no';
-  answerVerification(crushedCar);
+  answerVerification(butterflyCollection);
   console.log('Have rare butterfly collection? - user answer: ' + butterflyCollection + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of 8');
   var eightCats = userInput('I used to have 8 cats');
   correctAnswer = 'yes';
