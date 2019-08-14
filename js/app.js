@@ -10,10 +10,11 @@ var questions = ['I spent 5 years studying tribology', 'My parked car was almost
 //array with answers
 var correctAnswers = ['yes', 'yes', 'no', 'yes', 'no', 'no', 'yes', 'no'];
 
-// create a function that allows only yes or no answers and replace y/n with yes/no
+// create a function that allows only yes or no answers and replaces y/n with yes/no
 var userInput = function (question) {
   var answer = prompt(question);
   while (!(answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'no' || answer.toLowerCase() === 'y' || answer.toLowerCase() === 'n')) {
+    console.log('Unacceptable user entry - "' + answer + '", user prompted to try again');
     answer = prompt('I\'m sorry, I didn\'t quite get your answer, can you please try again using only yes and no?  ' + question);
   }
   if(answer.toLowerCase() === 'y') {
@@ -61,10 +62,10 @@ var playButtonEl = document.getElementById('play-game');
 var guessingGame = function () {
   alert('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not. Please use only YES or NO to answer the questions');
   correctAnswersCount = 0;
-  for (var i=0; i<questions.length; i++) {
+  for (var i = 0; i < questions.length; i++) {
     var question = userInput(questions[i]);
     answerVerification(question, correctAnswers[i]);
-    console.log('Question ' +(i+1) +': "' + questions[i] + '". User answer: ' + question + ' - ' +answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
+    console.log('Question ' + (i + 1) +': "' + questions[i] + '". User answer: ' + question + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
   }
   //notifying user about the game score
   if(correctAnswersCount > 5) {
