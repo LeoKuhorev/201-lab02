@@ -3,9 +3,14 @@
 //declaring global variables
 var answerStatus; //correct or incorrect answer
 var correctAnswersCount; //stores number of correct answers
-var correctAnswer; //stores correct answer for each question
 
-// create a function that will allow only yes or no answers and replace y/n with yes/no
+//array with questions
+var questions = ['I spent 5 years studying tribology', 'My parked car was almost destroyed by an old lady a few weeks ago', 'I have a collection of 50 rare butterflies', 'I used to have 8 cats', 'I climbed Elbrus last year', 'I spent 3 nights in Mojave Desert in Nevada because my car broke down', 'I jumped with parachute', 'I hate dust so I vacuum every day no matter what'];
+
+//array with answers
+var correctAnswers = ['yes', 'yes', 'no', 'yes', 'no', 'no', 'yes', 'no'];
+
+// create a function that allows only yes or no answers and replace y/n with yes/no
 var userInput = function (question) {
   var answer = prompt(question);
   while (!(answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'no' || answer.toLowerCase() === 'y' || answer.toLowerCase() === 'n')) {
@@ -20,8 +25,8 @@ var userInput = function (question) {
 };
 
 //create a function that compares user answer with correct answer
-var answerVerification = function (question){
-  if(question === correctAnswer) {
+var answerVerification = function (question, answer){
+  if(question === answer) {
     alert('Yay! You\'re absolutely right!');
     answerStatus = 'correct answer';
     correctAnswersCount++;
@@ -32,7 +37,7 @@ var answerVerification = function (question){
 };
 
 //change user name by clicking change name button, otherwise show as guest
-var userName = 'guest';
+var userName = 'guest'; //default user name
 var userNameEl = document.getElementById('user-name'); //right top corner
 var userNameEl2 = document.getElementById('user-name2'); // #about p
 var changeNameEl = document.getElementById('add-name'); //change name button
@@ -55,46 +60,19 @@ var playButtonEl = document.getElementById('play-game');
 //guessing game function
 var guessingGame = function () {
   alert('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not. Please use only YES or NO to answer the questions');
-  //list of questions (8 in total) *** turn into array and loop when get a chance***
   correctAnswersCount = 0;
-  var studiedTribology = userInput('I spent 5 years studying tribology');
-  correctAnswer = 'yes';
-  answerVerification(studiedTribology);
-  console.log('Spent 5 years studying tribology? - user answer: ' + studiedTribology + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of 8');
-  var crushedCar = userInput('My parked car was almost destroyed by an old lady a few weeks ago');
-  correctAnswer = 'yes';
-  answerVerification(crushedCar);
-  console.log('Car got crushed? - user answer: ' + crushedCar + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of 8');
-  var butterflyCollection = userInput('I have a collection of 50 rare butterflies');
-  correctAnswer = 'no';
-  answerVerification(butterflyCollection);
-  console.log('Have rare butterfly collection? - user answer: ' + butterflyCollection + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of 8');
-  var eightCats = userInput('I used to have 8 cats');
-  correctAnswer = 'yes';
-  answerVerification(eightCats);
-  console.log('Used to have 8 cats? - user answer: ' + eightCats + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of 8');
-  var climbedElbrus = userInput('I climbed Elbrus last year');
-  correctAnswer = 'no';
-  answerVerification(climbedElbrus);
-  console.log('Climbed Elbrus? - user answer: ' + climbedElbrus + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of 8');
-  var spentNightInDesert = userInput('I spent 3 nights in Mojave Desert in Nevada because my car broke down');
-  correctAnswer = 'no';
-  answerVerification(spentNightInDesert);
-  console.log('Spent 3 nights in a Desert? - user answer: ' + spentNightInDesert + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of 8');
-  var parachuteJump = userInput('I jumped with parachute');
-  correctAnswer = 'yes';
-  answerVerification(parachuteJump);
-  console.log('Jumped with parachute? - user answer: ' + parachuteJump + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of 8');
-  var dailyVacuum = userInput('I hate dust so I vacuum every day no matter what');
-  correctAnswer = 'no';
-  answerVerification(dailyVacuum);
-  console.log('Vacuum daily? - user answer: ' + dailyVacuum + ' - ' + answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of 8');
+  for (var i=0; i<questions.length; i++) {
+    var question = userInput(questions[i]);
+    answerVerification(question, correctAnswers[i]);
+    console.log('Question ' +(i+1) +': "' + questions[i] + '". User answer: ' + question + ' - ' +answerStatus + '. Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
+  }
+  //notifying user about the game score
   if(correctAnswersCount > 5) {
-    alert('Congratulations ' + userName + '! You\'ve got ' + correctAnswersCount + ' out of 8 correct answers');
+    alert('Congratulations ' + userName + '! You\'ve got ' + correctAnswersCount + ' out of ' + questions.length + ' correct answers');
   } else if (correctAnswersCount > 3) {
-    alert('Pretty close, ' + userName + '! You\'ve got ' + correctAnswersCount + ' out of 8 correct answers, try again');
+    alert('Pretty close, ' + userName + '! You\'ve got ' + correctAnswersCount + ' out of ' + questions.length + ' correct answers, try again');
   } else {
-    alert('You\'ve got ' + correctAnswersCount + ' out of 8 correct answers. Cheer up, ' + userName + '! I\'m sure you can get more next time! :-)');
+    alert('You\'ve got ' + correctAnswersCount + ' out of ' + questions.length + ' correct answers. Cheer up, ' + userName + '! I\'m sure you can get more next time! :-)');
   }
 };
 playButtonEl.addEventListener('click', guessingGame);
