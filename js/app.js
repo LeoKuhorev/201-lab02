@@ -23,7 +23,7 @@ changeNameEl.addEventListener('click', changeUserName);
 var correctAnswersCount; //stores number of correct answers
 
 //questions
-var questions = ['I have a collection of 50 rare butterflies', 'I used to have 8 cats', 'I climbed Elbrus last year', 'I spent 3 nights in Mojave Desert in Nevada because my car broke down', 'I jumped with parachute', 'How many marshmallows I can fit in my mouth?', 'Try to guess any country I\'ve ever been to'];
+var questions = ['I have a collection of 50 rare butterflies', 'I used to have 8 cats', 'I climbed Elbrus last year', 'I spent 3 nights in Mojave Desert in Nevada because my car broke down', 'I jumped with parachute', 'Try to guess how many marshmallows I can fit in my mouth?', 'Try to guess any country I\'ve ever been to'];
 
 //answers
 var marshmallowsRandom = Math.floor(Math.random() * 20) + 10; //assigns random value between 10 and 30, thanks to w3schools.com;
@@ -31,7 +31,7 @@ var countriesVisited = ['Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lit
 var correctAnswers = ['no', 'yes', 'no', 'no', 'yes', marshmallowsRandom, countriesVisited];
 
 //notification messages
-var notificationMessage = ['I don\'t know anything about butterflies', 'I used to be a volunteer and take care of stray animals, so sometimes we would have a lot of them at our house', 'I haven\'t done it just yet, but it\'s on my bucket list', 'I actually never been to Mojave Desert', 'I did it, and it was really cool!', 'Honestly, I\'ve never tried to count and the answer is just a random number, but good guess anyways!'];
+var notificationMessage = ['I don\'t know anything about butterflies', 'I used to be a volunteer and take care of stray animals, so sometimes we would have a lot of them at our house', 'I haven\'t done it just yet, but it\'s on my bucket list', 'I actually never been to Mojave Desert', 'I did it, and it was really cool!', 'Honestly, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)'];
 
 //create a that starts guessing game when play button is clicked
 var playButtonEl = document.getElementById('play-game');
@@ -66,9 +66,8 @@ var guessingGame = function() {
       } else if (answer === 'n') {
         answer = 'no';
       }
-    }
-    //for the 6th question allow only numeric answers
-    if (i === questions.length-2) {
+    } else if (i === questions.length-2) {
+      //for the 6th question allow only numeric answers
       console.log('the random generated number of marshmallows is - ' + correctAnswers[i]);
       for (var k = 0; k < 3; k++) {
         while (isNaN(answer) || answer === null || answer === '') {
@@ -85,14 +84,34 @@ var guessingGame = function() {
         }
       }
       answer = parseInt(answer);
-    }
-    if (answer === correctAnswers[i]) {
-      alert('Yay ' + userName + ' you\'re absolutely right! ' + notificationMessage[i]);
-      correctAnswersCount++;
     } else {
-      alert('Nope, ' + userName + ' not really, ' + notificationMessage[i]);
+      for (var n = 0; n < 5; n++) {
+        var matchesFound = 0;
+        for (k = 0; k < countriesVisited.length; k++) {
+          if (answer.toLowerCase() === countriesVisited[k].toLowerCase()) {
+            matchesFound++;
+            break;
+          }
+        }
+        if (matchesFound > 0) {
+          alert('Yay ' + userName + ', you\'re absolutely right!');
+          correctAnswersCount++;
+          break;
+        } else {
+          answer = prompt('No, I haven\'t been there yet, try again, you have ' + (3-n) + ' attempts left');
+        }
+      }
     }
-    console.log('Question ' + (i + 1) +': "' + questions[i] + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
+    //checking if answers are correct
+    if (i < questions.length-1) {
+      if (answer === correctAnswers[i]) {
+        alert('Yay ' + userName + ', you\'re absolutely right! ' + notificationMessage[i]);
+        correctAnswersCount++;
+      } else {
+        alert('Nope ' + userName + ', not really, ' + notificationMessage[i]);
+      }
+      console.log('Question ' + (i + 1) +': "' + questions[i] + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
+    }
   }
   //notifying user about the game score
   if(correctAnswersCount > 5) {
