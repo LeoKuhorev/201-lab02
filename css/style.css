@@ -108,10 +108,10 @@ h3 {
   font-weight: bold;
   text-align: center;
 }
-#projects ul {
+#projects ol {
   padding: 1rem;
 }
-#projects ul li {
+#projects ol li {
   font-size: 20pt;
   text-align: center;
   line-height: 28pt;
