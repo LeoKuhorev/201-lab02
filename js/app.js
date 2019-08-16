@@ -29,7 +29,7 @@ var questions = [
   'I climbed Elbrus last year',
   'I spent 3 nights in Mojave Desert in Nevada because my car broke down',
   'I jumped with parachute',
-  'Try to guess how many marshmallows I can fit in my mouth',
+  'Try to guess how many marshmallows I can fit in my mouth. (Hint: between 10 and 30)',
   'Try to guess any country I\'ve ever been to'
 ];
 
@@ -42,16 +42,17 @@ var correctAnswers = [
   'no',
   'yes',
   marshmallowsRandom,
-  ['Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lithuania', 'Latvia', 'Ukraine', 'Russia', 'Netherlands', 'Belgium', 'Moldova', 'Romania', 'Bulgaria', 'USA']
+  ['Czech Republic', 'Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lithuania', 'Latvia', 'Ukraine', 'Russia', 'Netherlands', 'Belgium', 'Moldova', 'Romania', 'Bulgaria', 'USA', 'Turkey']
 ];
 
 //notification messages
 var notificationMessage = [
   'I don\'t know anything about butterflies',
   'I used to be a volunteer and take care of stray animals, so there were times when we had a lot of them at our house',
-  'I haven\'t done it just yet, but it\'s on my bucket list',
+  'I haven\'t done it just yet, but it\'s definitely on my bucket list',
   'I actually never been to Mojave Desert', 'I did it, and it was really cool!',
-  'Honestly, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)'
+  'Actually, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)',
+  'Placeholder'
 ];
 
 //create a that starts guessing game when play button is clicked
@@ -62,7 +63,7 @@ var scoreEl = document.getElementById('score');
 var guessingGame = function() {
   //if user name is not entered - prompt to enter it
   if (userName === 'guest') {
-    userName = prompt('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not. Please use only YES or NO to answer the first 5 questions. But first, please tell me your name ');
+    userName = prompt('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not. But first, please tell me your name ');
     console.log('the username entered at the game start: ' + userName);
     while (userName === null || userName === '' || userName ==='guest') {
       userName = prompt('I really think you should tell me who you are :-)');
@@ -72,15 +73,35 @@ var guessingGame = function() {
     userNameEl.style.padding = '14px 16px';
     userNameEl2.textContent = userName;
   } else {
-    alert('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not. Please use only YES or NO to answer the first 5 questions');
+    alert('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not.');
   }
+
   correctAnswersCount = 0; //start the game with 0 correct answers
 
-  //iterate through the array of questions
-  for (var i = 0; i < questions.length; i++) {
+  //iterate through the array of questions in random order (thanks to https://www.kirupa.com/html5/shuffling_array_js.htm)
+  for (var i = questions.length-1; i >=0; i--) {
+    var randomIndex = Math.floor(Math.random()*(i+1)); //stores the random number between 0 and current index
+
+    //storing random array value
+    var itemAtIndexQuestions = questions[randomIndex]; //stores random array value for questions array
+    var itemAtIndexCorrectAnswers = correctAnswers[randomIndex]; //stores random array value for correctAnswers array
+    var itemAtIndexNotificationMessage = notificationMessage[randomIndex]; //stores random array value for notificationMessage array
+
+    //swapping values of current index and random index
+    //random array element gets current i element value
+    questions[randomIndex] = questions[i];
+    correctAnswers[randomIndex] = correctAnswers[i];
+    notificationMessage[randomIndex] = notificationMessage[i];
+
+    //current i element gets random array element value
+    questions[i] = itemAtIndexQuestions;
+    correctAnswers[i] = itemAtIndexCorrectAnswers;
+    notificationMessage[i] = itemAtIndexNotificationMessage;
+
     var answer = prompt(questions[i]).toLowerCase();
-    //for the first 5 questions allow only yes/y or no/n answers and convert y/n to yes/no
-    if (i < questions.length-2){
+
+    //if the answer is text, then allow only yes/y or no/n answers and convert y/n to yes/no
+    if (typeof correctAnswers[i] === 'string'){
       while (!(answer === 'yes' || answer === 'no' || answer === 'y' || answer === 'n')) {
         answer = prompt(' I\'m sorry, I didn\'t quite get your answer, please try again using only yes and no answers. ' + questions[i]).toLowerCase();
       }
@@ -89,13 +110,15 @@ var guessingGame = function() {
       } else if (answer === 'n') {
         answer = 'no';
       }
-    //for the 6th question allow only numeric answers and give 4 attempts to guess the number
-    } else if (i === questions.length-2) {
+
+      //if the answer is a number allow user only numeric entries and give 4 attempts to guess the number
+    } else if (!isNaN(correctAnswers[i])) {
       for (var k = 0; k < 3; k++) {
         while (isNaN(answer) || answer === null || answer === '') {
           answer = prompt('Please enter a number for the answer');
         }
         console.log('The random generated number of marshmallows is - ' + correctAnswers[i] + '. User answer is - ' + answer);
+
         //show different prompt messages depending on how close user input was to the generated random message
         if (answer < 10) {
           answer = prompt('Wow, ' + userName + ', you\'re really underestimating me! Try again, you have ' + (3-k) + ' attempts left');
@@ -109,8 +132,9 @@ var guessingGame = function() {
       }
       //convert prompt string into number to be able to use '==='
       answer = parseInt(answer);
-    //for the 7th question give user 6 attempts, compare every entry with visited countries array
-    } else {
+
+    //if the answer is an array allow user only text entries and give 6 attempts to guess the answer
+    } else if (Array.isArray(correctAnswers[i])) {
       var correctCountry;
       for (var n = 0; n < 5; n++) {
         while (!isNaN(answer) || answer === null || answer === '') {
@@ -128,7 +152,7 @@ var guessingGame = function() {
         if (matchesFound > 0) {
           alert('Yay ' + userName + ', you\'re absolutely right! I\'ve been to ' + correctCountry + ' indeed. Here\'s the list of countries I visited: ' + correctAnswers[i].join(', '));
           correctAnswersCount++;
-          console.log('Question ' + (i + 1) + ': "' + questions[i] + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
+          console.log('Question ' + (correctAnswers.length - i) + ': "' + questions[i] + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
           break;
         } else {
           console.log('List of countries I\'ve been to: ' + correctAnswers[i].join(', ') + '. User answer is - ' + answer);
@@ -141,14 +165,14 @@ var guessingGame = function() {
       }
     }
     //checking if answers are correct for question 1-6
-    if (i < questions.length-1) {
+    if (!Array.isArray(correctAnswers[i])) {
       if (answer === correctAnswers[i]) {
         alert('Yay ' + userName + ', you\'re absolutely right! ' + notificationMessage[i]);
         correctAnswersCount++;
       } else {
         alert('Nope ' + userName + ', not really, ' + notificationMessage[i]);
       }
-      console.log('Question ' + (i + 1) +': "' + questions[i] + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
+      console.log('Question ' + (correctAnswers.length - i) +': "' + questions[i] + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
     }
   }
   //notifying user about the game score
