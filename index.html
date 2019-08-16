@@ -13,7 +13,17 @@
         <nav>
           <ul>
             <li class="active"><a href="index.html" rel="noopener noreferrer">Home</a></li>
-            <li><a href="#projects" rel="noopener noreferrer">Projects</a></li>
+            <li>
+              <div class="dropdown">
+                <div class="drop-li">Projects</div>
+                <div class="dropdown-content">
+                    <a href="https://leokuhorev.github.io/101-project/" target="_blank" rel="noopener noreferrer">101 Project</a>
+                    <a href="https://leokuhorev.github.io/102-lab01/" target="_blank" rel="noopener noreferrer">102 lab 01</a>
+                    <a href="https://leokuhorev.github.io/102-lab02/" target="_blank" rel="noopener noreferrer">102 lab 02</a>
+                    <a href="https://leokuhorev.github.io/201-lab01/" target="_blank" rel="noopener noreferrer">201 lab 01</a>
+                  </div>
+              </div>
+            </li>
             <li><a href="hobbies.html" rel="noopener noreferrer">My hobby</a></li>  
             <li><a href="#about" rel="noopener noreferrer">About</a></li> 
             <li id="user-name">Welcome, guest!<button id="add-name" type="button">Change Name</button>  </li>         
@@ -34,9 +44,9 @@
           </figure>
           <p>Welcome to my page, <span id="user-name2" class="bold">guest</span>. My name is Leo and I'm a student at Code Fellows. I love coding and learning new things. I also love mountains and try to explore our beautiful state whenever I get a chance. Do you want to learn more facts about me? Let's play a question game!<span id="score"></span><button id="play-game" type="button">PLAY</button></p> 
         </section>
-        <section id="exp-edu">
+        <section id="exp-edu" class="clearfix">
           <section id="experience">
-              <h3>Experience</h3>
+            <h3>Experience</h3>
             <ul>
               <li><span class="bold">ResCare HomeCare</span>, Seattle - Client Service Supervisor (2018-Present)</li>
               <li><span class="bold">ResCare HomeCare</span>, Seattle – HR/Quality assurance coordinator (2017-2018)</li>
@@ -44,7 +54,7 @@
             </ul>
           </section>
           <section id="education">
-              <h3>Education</h3>
+            <h3>Education</h3>
             <ul>
               <li><span class="bold">Code Fellows</span>, Seattle, WA (2019-2020)</li>
               <li><span class="bold">Metal-Polymer Research Institute</span>, Gomel, Belarus (2007-2009)</li>
@@ -52,17 +62,28 @@
             </ul>
           </section>
         </section>
-        <section id="projects">
-          <h3>Please see my other projects at Code Fellows:</h3>
-            <ol>
-              <li><a href="https://leokuhorev.github.io/101-project/" target="_blank" rel="noopener noreferrer">101 Project</a></li>
-              <li><a href="https://leokuhorev.github.io/102-lab01/" target="_blank" rel="noopener noreferrer">102 lab 01</a></li>
-              <li><a href="https://leokuhorev.github.io/102-lab02/" target="_blank" rel="noopener noreferrer">102 lab 02</a></li>
-              <li><a href="https://leokuhorev.github.io/201-lab01/" target="_blank" rel="noopener noreferrer">201 lab 01</a></li>
-            </ol>
+        <section id="top-list">
+          <h3>Top 10 things I'd like to do:</h3>
+          <ol>
+            <li>Learn how to code</li>
+            <li>Trip to New Zeland</li>
+            <li>Climb Elbrus</li>
+            <li>Visit Yellowstone</li>
+            <li>Create a system that will make people pay more attention to our planet and ecology</li>
+            <li>Visit Galapagos Islands</li>
+            <li>Hike PCT (Pacific Crest Trail)</li>
+            <li>Try Paragliding</li>
+            <li>Learn how to swim</li>
+            <li>Ride hot air balloon</li>
+          </ol>
+        </section>
+        <section class="clearfix">
+          <!-- <h3>Please see my other projects at Code Fellows:</h3>
+            <ul>
+            </ul> -->
         </section>
       </main>
-      <footer>
+      <footer class="clearfix">
         <ul>
           <li><a href="https://www.facebook.com/leonid.kuhorev" target="_blank" rel="noopener noreferrer">Facebook</a></li>
           <li><a href="https://www.instagram.com/kuhorev.leonid/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
