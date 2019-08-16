@@ -89,6 +89,9 @@ var guessingGame = function() {
     //for the 7th question give user 6 attempts, compare every entry with visited countries array
     } else {
       for (var n = 0; n < 5; n++) {
+        while (!isNaN(answer) || answer === null || answer === '') {
+          answer = prompt('Please make sure you\'re entering a country');
+        }
         var matchesFound = 0;
         for (k = 0; k < correctAnswers[i].length; k++) {
           if (answer.toLowerCase() === correctAnswers[i][k].toLowerCase()) {
