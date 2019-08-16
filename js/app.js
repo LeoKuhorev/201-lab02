@@ -15,7 +15,7 @@ var changeUserName = function() {
   userNameEl.textContent = 'Welcome ' + userName + '!';
   userNameEl.style.padding = '14px 16px';
   userNameEl2.textContent = userName;
-  console.log('the username entered through the form: ' + userName);
+  console.log('The username entered through the form: ' + userName);
 };
 changeNameEl.addEventListener('click', changeUserName);
 
@@ -31,7 +31,7 @@ var countriesVisited = ['Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lit
 var correctAnswers = ['no', 'yes', 'no', 'no', 'yes', marshmallowsRandom, countriesVisited];
 
 //notification messages
-var notificationMessage = ['I don\'t know anything about butterflies', 'I used to be a volunteer and take care of stray animals, so sometimes we would have a lot of them at our house', 'I haven\'t done it just yet, but it\'s on my bucket list', 'I actually never been to Mojave Desert', 'I did it, and it was really cool!', 'Honestly, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)'];
+var notificationMessage = ['I don\'t know anything about butterflies', 'I used to be a volunteer and take care of stray animals, so there were times when we had a lot of them at our house', 'I haven\'t done it just yet, but it\'s on my bucket list', 'I actually never been to Mojave Desert', 'I did it, and it was really cool!', 'Honestly, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)'];
 
 //create a that starts guessing game when play button is clicked
 var playButtonEl = document.getElementById('play-game');
@@ -73,10 +73,10 @@ var guessingGame = function() {
         while (isNaN(answer) || answer === null || answer === '') {
           answer = prompt('Please enter a number for the answer');
         }
-        if (answer < 5) {
-          answer = prompt('Wow, ' + userName + ', you really underestimate me! Try again, you have ' + (3-k) + ' attempts left');
-        } else if (answer > 50) {
-          answer = prompt('Wow, ' + userName + ', you really overestimate me! Try again you have ' + (3-k) + ' attempts left');
+        if (answer < 10) {
+          answer = prompt('Wow, ' + userName + ', you\'re really underestimating me! Try again, you have ' + (3-k) + ' attempts left');
+        } else if (answer > 30) {
+          answer = prompt('Wow, ' + userName + ', you really overestimating me! Try again, you have ' + (3-k) + ' attempts left');
         } else if (answer < correctAnswers[i]) {
           answer = prompt('Pretty close, ' + userName + ', but try a bit higher, you have ' + (3-k) + ' attempts left');
         } else if (answer > correctAnswers[i]) {
@@ -94,12 +94,15 @@ var guessingGame = function() {
           }
         }
         if (matchesFound > 0) {
-          alert('Yay ' + userName + ', you\'re absolutely right!');
+          alert('Yay ' + userName + ', you\'re absolutely right! Here\'s the list of countries I visited: ' + countriesVisited.join(', '));
           correctAnswersCount++;
           break;
         } else {
-          answer = prompt('No, I haven\'t been there yet, try again, you have ' + (3-n) + ' attempts left');
+          answer = prompt('No, I haven\'t been there yet, try again, you have ' + (5-n) + ' attempts left');
         }
+      }
+      if (matchesFound === 0) {
+        alert('Here\'s the list of countries I visited: ' + countriesVisited.join(', '));
       }
     }
     //checking if answers are correct
