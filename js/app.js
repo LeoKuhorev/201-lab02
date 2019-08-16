@@ -67,14 +67,16 @@ var guessingGame = function() {
     while (userName === null || userName === '' || userName ==='guest') {
       userName = prompt('I really think you should tell me who you are :-)');
     }
-    //change user name on the site
+    //change user name in the site html
     userNameEl.textContent = 'Welcome ' + userName + '!';
     userNameEl.style.padding = '14px 16px';
     userNameEl2.textContent = userName;
   } else {
     alert('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not. Please use only YES or NO to answer the first 5 questions');
   }
-  correctAnswersCount = 0;
+  correctAnswersCount = 0; //start the game with 0 correct answers
+
+  //iterate through the array of questions
   for (var i = 0; i < questions.length; i++) {
     var answer = prompt(questions[i]).toLowerCase();
     //for the first 5 questions allow only yes/y or no/n answers and convert y/n to yes/no
@@ -109,8 +111,8 @@ var guessingGame = function() {
       answer = parseInt(answer);
     //for the 7th question give user 6 attempts, compare every entry with visited countries array
     } else {
-      var correctCountry;      
-      for (var n = 0; n < 5; n++) {        
+      var correctCountry;
+      for (var n = 0; n < 5; n++) {
         while (!isNaN(answer) || answer === null || answer === '') {
           answer = prompt('Please make sure you\'re entering a country');
         }
