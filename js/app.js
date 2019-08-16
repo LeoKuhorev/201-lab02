@@ -3,8 +3,8 @@
 //***CHANGING USER NAME ***
 //change user name by clicking change name button, otherwise show as guest
 var userName = 'guest'; //default user name
-var userNameEl = document.getElementById('user-name'); //right top corner
-var userNameEl2 = document.getElementById('user-name2'); // #about p
+var userNameEl = document.getElementById('user-name'); //right top corner of the page
+var userNameEl2 = document.getElementById('user-name2'); // #about <p>
 var changeNameEl = document.getElementById('add-name'); //change name button
 
 var changeUserName = function() {
@@ -26,9 +26,9 @@ var correctAnswersCount; //stores number of correct answers
 var questions = ['I have a collection of 50 rare butterflies', 'I used to have 8 cats', 'I climbed Elbrus last year', 'I spent 3 nights in Mojave Desert in Nevada because my car broke down', 'I jumped with parachute', 'Try to guess how many marshmallows I can fit in my mouth?', 'Try to guess any country I\'ve ever been to'];
 
 //answers
-var marshmallowsRandom = Math.floor(Math.random() * 20) + 10; //assigns random value between 10 and 30, thanks to w3schools.com;
-var countriesVisited = ['Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lithuania', 'Latvia', 'Russia', 'Netherlands', 'Belgium', 'Moldova', 'Romania', 'Bulgaria', 'USA']; //stores visited countries
-var correctAnswers = ['no', 'yes', 'no', 'no', 'yes', marshmallowsRandom, countriesVisited];
+var marshmallowsRandom = Math.floor(Math.random() * 20) + 10; //assigns random value between 10 and 30
+// var countriesVisited = ['Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lithuania', 'Latvia', 'Ukraine', 'Russia', 'Netherlands', 'Belgium', 'Moldova', 'Romania', 'Bulgaria', 'USA']; //stores visited countries
+var correctAnswers = ['no', 'yes', 'no', 'no', 'yes', marshmallowsRandom, ['Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lithuania', 'Latvia', 'Ukraine', 'Russia', 'Netherlands', 'Belgium', 'Moldova', 'Romania', 'Bulgaria', 'USA']];
 
 //notification messages
 var notificationMessage = ['I don\'t know anything about butterflies', 'I used to be a volunteer and take care of stray animals, so there were times when we had a lot of them at our house', 'I haven\'t done it just yet, but it\'s on my bucket list', 'I actually never been to Mojave Desert', 'I did it, and it was really cool!', 'Honestly, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)'];
@@ -66,46 +66,53 @@ var guessingGame = function() {
       } else if (answer === 'n') {
         answer = 'no';
       }
+    //for the 6th question allow only numeric answers and give 4 attempts to guess the number
     } else if (i === questions.length-2) {
-      //for the 6th question allow only numeric answers
-      console.log('the random generated number of marshmallows is - ' + correctAnswers[i]);
       for (var k = 0; k < 3; k++) {
         while (isNaN(answer) || answer === null || answer === '') {
           answer = prompt('Please enter a number for the answer');
         }
+        console.log('The random generated number of marshmallows is - ' + correctAnswers[i] + '. User answer is - ' + answer);
+        //show different prompt messages depending on how close user input was to the generated random message
         if (answer < 10) {
           answer = prompt('Wow, ' + userName + ', you\'re really underestimating me! Try again, you have ' + (3-k) + ' attempts left');
         } else if (answer > 30) {
-          answer = prompt('Wow, ' + userName + ', you really overestimating me! Try again, you have ' + (3-k) + ' attempts left');
+          answer = prompt('Wow, ' + userName + ', you\'re really overestimating me! Try again, you have ' + (3-k) + ' attempts left');
         } else if (answer < correctAnswers[i]) {
           answer = prompt('Pretty close, ' + userName + ', but try a bit higher, you have ' + (3-k) + ' attempts left');
         } else if (answer > correctAnswers[i]) {
           answer = prompt('Pretty close, ' + userName + ', but try a bit lower, you have ' + (3-k) + ' attempts left');
         }
       }
+      //convert prompt string into number to be able to use '==='
       answer = parseInt(answer);
+    //for the 7th question give user 6 attempts, compare every entry with visited countries array
     } else {
       for (var n = 0; n < 5; n++) {
         var matchesFound = 0;
-        for (k = 0; k < countriesVisited.length; k++) {
-          if (answer.toLowerCase() === countriesVisited[k].toLowerCase()) {
+        for (k = 0; k < correctAnswers[i].length; k++) {
+          if (answer.toLowerCase() === correctAnswers[i][k].toLowerCase()) {
             matchesFound++;
             break;
           }
         }
+        //if user guessed the country - exit the loop
         if (matchesFound > 0) {
-          alert('Yay ' + userName + ', you\'re absolutely right! Here\'s the list of countries I visited: ' + countriesVisited.join(', '));
+          alert('Yay ' + userName + ', you\'re absolutely right! Here\'s the list of countries I visited: ' + correctAnswers[i].join(', '));
           correctAnswersCount++;
+          console.log('Question ' + (i + 1) + ': "' + questions[i] + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
           break;
         } else {
+          console.log('List of countries I\'ve been to: ' + correctAnswers[i].join(', ') + '. User answer is - ' + answer);
           answer = prompt('No, I haven\'t been there yet, try again, you have ' + (5-n) + ' attempts left');
         }
       }
+      //if after 6 attempts no country guessed - show alert with a list of countries
       if (matchesFound === 0) {
-        alert('Here\'s the list of countries I visited: ' + countriesVisited.join(', '));
+        alert('Here\'s the list of countries I visited: ' + correctAnswers[i].join(', '));
       }
     }
-    //checking if answers are correct
+    //checking if answers are correct for question 1-6
     if (i < questions.length-1) {
       if (answer === correctAnswers[i]) {
         alert('Yay ' + userName + ', you\'re absolutely right! ' + notificationMessage[i]);
@@ -118,9 +125,9 @@ var guessingGame = function() {
   }
   //notifying user about the game score
   if(correctAnswersCount > 5) {
-    alert('Congratulations ' + userName + '! You\'ve got ' + correctAnswersCount + ' out of ' + questions.length + ' correct answers');
+    alert('Congratulations ' + userName + '! You\'ve got ' + correctAnswersCount + ' out of ' + questions.length + ' correct answers. Seems that you know me pretty well!');
   } else if (correctAnswersCount > 3) {
-    alert('Pretty close, ' + userName + '! You\'ve got ' + correctAnswersCount + ' out of ' + questions.length + ' correct answers, try again');
+    alert('Pretty close, ' + userName + '! You\'ve got ' + correctAnswersCount + ' out of ' + questions.length + ' correct answers, you can try again to get ' + questions.length + '/' + questions.length + '!');
   } else {
     alert('You\'ve got ' + correctAnswersCount + ' out of ' + questions.length + ' correct answers. Cheer up, ' + userName + '! I\'m sure you can get more next time! :-)');
   }
