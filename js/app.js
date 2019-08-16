@@ -23,15 +23,36 @@ changeNameEl.addEventListener('click', changeUserName);
 var correctAnswersCount; //stores number of correct answers
 
 //questions
-var questions = ['I have a collection of 50 rare butterflies', 'I used to have 8 cats', 'I climbed Elbrus last year', 'I spent 3 nights in Mojave Desert in Nevada because my car broke down', 'I jumped with parachute', 'Try to guess how many marshmallows I can fit in my mouth?', 'Try to guess any country I\'ve ever been to'];
+var questions = [
+  'I have a collection of 50 rare butterflies',
+  'I used to have 8 cats',
+  'I climbed Elbrus last year',
+  'I spent 3 nights in Mojave Desert in Nevada because my car broke down',
+  'I jumped with parachute',
+  'Try to guess how many marshmallows I can fit in my mouth',
+  'Try to guess any country I\'ve ever been to'
+];
 
 //answers
 var marshmallowsRandom = Math.floor(Math.random() * 20) + 10; //assigns random value between 10 and 30
-// var countriesVisited = ['Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lithuania', 'Latvia', 'Ukraine', 'Russia', 'Netherlands', 'Belgium', 'Moldova', 'Romania', 'Bulgaria', 'USA']; //stores visited countries
-var correctAnswers = ['no', 'yes', 'no', 'no', 'yes', marshmallowsRandom, ['Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lithuania', 'Latvia', 'Ukraine', 'Russia', 'Netherlands', 'Belgium', 'Moldova', 'Romania', 'Bulgaria', 'USA']];
+var correctAnswers = [
+  'no',
+  'yes',
+  'no',
+  'no',
+  'yes',
+  marshmallowsRandom,
+  ['Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lithuania', 'Latvia', 'Ukraine', 'Russia', 'Netherlands', 'Belgium', 'Moldova', 'Romania', 'Bulgaria', 'USA']
+];
 
 //notification messages
-var notificationMessage = ['I don\'t know anything about butterflies', 'I used to be a volunteer and take care of stray animals, so there were times when we had a lot of them at our house', 'I haven\'t done it just yet, but it\'s on my bucket list', 'I actually never been to Mojave Desert', 'I did it, and it was really cool!', 'Honestly, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)'];
+var notificationMessage = [
+  'I don\'t know anything about butterflies',
+  'I used to be a volunteer and take care of stray animals, so there were times when we had a lot of them at our house',
+  'I haven\'t done it just yet, but it\'s on my bucket list',
+  'I actually never been to Mojave Desert', 'I did it, and it was really cool!',
+  'Honestly, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)'
+];
 
 //create a that starts guessing game when play button is clicked
 var playButtonEl = document.getElementById('play-game');
@@ -88,7 +109,8 @@ var guessingGame = function() {
       answer = parseInt(answer);
     //for the 7th question give user 6 attempts, compare every entry with visited countries array
     } else {
-      for (var n = 0; n < 5; n++) {
+      var correctCountry;      
+      for (var n = 0; n < 5; n++) {        
         while (!isNaN(answer) || answer === null || answer === '') {
           answer = prompt('Please make sure you\'re entering a country');
         }
@@ -96,12 +118,13 @@ var guessingGame = function() {
         for (k = 0; k < correctAnswers[i].length; k++) {
           if (answer.toLowerCase() === correctAnswers[i][k].toLowerCase()) {
             matchesFound++;
+            correctCountry = correctAnswers[i][k];
             break;
           }
         }
         //if user guessed the country - exit the loop
         if (matchesFound > 0) {
-          alert('Yay ' + userName + ', you\'re absolutely right! Here\'s the list of countries I visited: ' + correctAnswers[i].join(', '));
+          alert('Yay ' + userName + ', you\'re absolutely right! I\'ve been to ' + correctCountry + ' indeed. Here\'s the list of countries I visited: ' + correctAnswers[i].join(', '));
           correctAnswersCount++;
           console.log('Question ' + (i + 1) + ': "' + questions[i] + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + questions.length);
           break;
@@ -112,7 +135,7 @@ var guessingGame = function() {
       }
       //if after 6 attempts no country guessed - show alert with a list of countries
       if (matchesFound === 0) {
-        alert('Here\'s the list of countries I visited: ' + correctAnswers[i].join(', '));
+        alert('Ooops, you\'re out of attempts, don\'t worry, you\'ll be more lucky next time! By the way, here\'s the list of countries I visited: ' + correctAnswers[i].join(', '));
       }
     }
     //checking if answers are correct for question 1-6

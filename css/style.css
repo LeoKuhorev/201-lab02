@@ -61,6 +61,11 @@ nav li a:hover {
 main {
   padding-bottom: 44px;
   padding-top: 44px;
+  font-size: 18pt;
+  line-height: 28pt;
+}
+.bold {
+  font-weight: bold;
 }
 #mainImage img {
   width: 100%;
@@ -79,8 +84,6 @@ main {
   text-align: justify;
   text-justify: inter-word;
   padding: 80px;
-  font-size: 18pt;
-  line-height: 28pt;
 }
 #my-photo img {
   float: left;
@@ -107,6 +110,16 @@ h3 {
   font-size: 20pt;
   font-weight: bold;
   text-align: center;
+}
+#exp-edu{
+  border: 2px solid #111;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#experience, #education, #projects  {
+  text-align: center;
+  padding: 2em;
 }
 #projects ol {
   padding: 1rem;
