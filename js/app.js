@@ -20,6 +20,16 @@ var changeUserName = function() {
 changeNameEl.addEventListener('click', changeUserName);
 
 //***GUESSING GAME***
+function answerValidator (answer, question){
+  while (!(answer === 'yes' || answer === 'no' || answer === 'y' || answer === 'n')) {
+    answer = prompt(' I\'m sorry, I didn\'t quite get your answer, please try again using only yes and no answers. ' + question).toLowerCase();
+  }
+  if (answer === 'y') {
+    answer = 'yes';
+  } else if (answer === 'n') {
+    answer = 'no';
+  }
+}
 //questions
 var questions = [
   'I have a collection of 50 rare butterflies',
@@ -108,15 +118,7 @@ var guessingGame = function() {
 
     //if the answer is a string, allow user only yes/y or no/n answers and convert y/n to yes/no
     if (typeof correctAnswers[i] === 'string'){
-      while (!(answer === 'yes' || answer === 'no' || answer === 'y' || answer === 'n')) {
-        answer = prompt(' I\'m sorry, I didn\'t quite get your answer, please try again using only yes and no answers. ' + questions[i]).toLowerCase();
-      }
-      if (answer === 'y') {
-        answer = 'yes';
-      } else if (answer === 'n') {
-        answer = 'no';
-      }
-
+      answerValidator(answer,questions[i]);
     //if the answer is a number, allow user only numeric entries and give 4 attempts to guess the number
     } else if (!isNaN(correctAnswers[i])) {
       for (var k = 0; k < 3; k++) {
