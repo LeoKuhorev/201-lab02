@@ -11,7 +11,7 @@
 ![Google accessibility tool](images/20190813.jpg)
 
 
-Thanks to [www.w3schools.com](https://www.w3schools.com/) for the js [random](https://www.w3schools.com/js/js_random.asp) tutorial
+Thanks to [www.w3schools.com](https://www.w3schools.com/) for the js [random](https://www.w3schools.com/js/js_random.asp) and [css nav bar](https://www.w3schools.com/howto/howto_css_dropdown.asp) tutorials
 
 Thanks to [www.geeksforgeeks.org](https://www.geeksforgeeks.org) for the [array.join()](https://www.geeksforgeeks.org/javascript-array-join-method/) and [parseInt()](https://www.geeksforgeeks.org/string-to-integer-in-java-parseint/) methods
 
