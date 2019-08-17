@@ -20,17 +20,64 @@ var changeUserName = function() {
 changeNameEl.addEventListener('click', changeUserName);
 
 //***GUESSING GAME***
-function answerValidator (answer, question){
-  while (!(answer === 'yes' || answer === 'no' || answer === 'y' || answer === 'n')) {
-    answer = prompt(' I\'m sorry, I didn\'t quite get your answer, please try again using only yes and no answers. ' + question).toLowerCase();
-  }
-  if (answer === 'y') {
-    answer = 'yes';
-  } else if (answer === 'n') {
-    answer = 'no';
-  }
-}
 //questions
+var marshmallowsRandom = Math.floor(Math.random() * 20) + 10; //assigns random value between 10 and 30
+
+//*** */FOR FUTURE USE***
+// var gameQuestions = [
+//   {
+//     question: 'I have a collection of 50 rare butterflies',
+//     answer: 'no',
+//     yesMessage: 'I don\'t know anything about butterflies',
+//     noMessage: 'I don\'t know anything about butterflies',
+//     type: 1,
+//   },
+//   {
+//     question: 'I used to have 8 cats',
+//     answer: 'yes',
+//     yesMessage: 'I used to have 8 cats',
+//     noMessage: 'I used to have 8 cats',
+//     type: 1,
+//   },
+//   {
+//     question: 'I climbed Elbrus last year',
+//     answer: 'no',
+//     yesMessage: 'I haven\'t done it just yet, but it\'s definitely on my bucket list',
+//     noMessage: 'I haven\'t done it just yet, but it\'s definitely on my bucket list',
+//     type: 1,
+//   },
+//   {
+//     question: 'I spent 3 nights in Mojave Desert in Nevada because my car broke down',
+//     answer: 'no',
+//     yesMessage: 'I actually never been to Mojave Desert',
+//     noMessage: 'I actually never been to Mojave Desert',
+//     type: 1,
+//   },
+//   {
+//     question: 'I jumped with parachute',
+//     answer: 'yes',
+//     yesMessage: 'I did it, and it was really cool!',
+//     noMessage: 'I did it, and it was really cool!',
+//     type: 1,
+//   },
+//   {
+//     question: 'Try to guess how many marshmallows I can fit in my mouth. (Hint: between 10 and 30)',
+//     answer: marshmallowsRandom,
+//     yesMessage: 'Actually, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)',
+//     noMessage: 'Actually, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)',
+//     type: 2,
+//   },
+//   {
+//     question: 'Try to guess any country I\'ve ever been to',
+//     answer: ['Czech Republic', 'Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lithuania', 'Latvia', 'Ukraine', 'Russia', 'Netherlands', 'Belgium', 'Moldova', 'Romania', 'Bulgaria', 'USA', 'Turkey'],
+//     yesMessage: 'Placeholder',
+//     noMessage: 'Placeholder',
+//     type: 3,
+//   }
+// ];
+
+
+
 var questions = [
   'I have a collection of 50 rare butterflies',
   'I used to have 8 cats',
@@ -42,7 +89,6 @@ var questions = [
 ];
 
 //answers
-var marshmallowsRandom = Math.floor(Math.random() * 20) + 10; //assigns random value between 10 and 30
 var correctAnswers = [
   'no',
   'yes',
@@ -58,7 +104,8 @@ var notificationMessage = [
   'I don\'t know anything about butterflies',
   'I used to be a volunteer and take care of stray animals, so there were times when we had a lot of them at our house',
   'I haven\'t done it just yet, but it\'s definitely on my bucket list',
-  'I actually never been to Mojave Desert', 'I did it, and it was really cool!',
+  'I actually never been to Mojave Desert',
+  'I did it, and it was really cool!',
   'Actually, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)',
   'Placeholder'
 ];
@@ -118,7 +165,15 @@ var guessingGame = function() {
 
     //if the answer is a string, allow user only yes/y or no/n answers and convert y/n to yes/no
     if (typeof correctAnswers[i] === 'string'){
-      answerValidator(answer,questions[i]);
+      while (!(answer === 'yes' || answer === 'no' || answer === 'y' || answer === 'n')) {
+        answer = prompt(' I\'m sorry, I didn\'t quite get your answer, please try again using only yes and no answers. ' + questions[i]).toLowerCase();
+      }
+      if (answer === 'y') {
+        answer = 'yes';
+      } else if (answer === 'n') {
+        answer = 'no';
+      }
+
     //if the answer is a number, allow user only numeric entries and give 4 attempts to guess the number
     } else if (!isNaN(correctAnswers[i])) {
       for (var k = 0; k < 3; k++) {
