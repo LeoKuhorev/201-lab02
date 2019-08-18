@@ -79,7 +79,7 @@ nav li a {
   text-decoration: none;
   width: auto;
 }
-#add-name{
+#add-name {
   background-color: #4CAF50; 
   border: none;
   color: white;
@@ -127,13 +127,18 @@ main {
 #about p {
   text-align: justify;
   text-justify: inter-word;
-  padding: 80px;
+  padding: 80px 80px 10px 80px;
 }
 #my-photo img {
   float: left;
   width: 200px;
   border-radius: 50%;
   margin: 50px;
+}
+#game {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
 }
 #play-game {
   background-color:rgb(78, 77, 77); 

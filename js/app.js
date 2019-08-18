@@ -161,12 +161,9 @@ var guessingGame = function() {
 
     var answer = prompt(gameQuestions[i].question).toLowerCase();
 
-    //check user entries with validator function
-    answer = entryValidator(gameQuestions[i], answer);
-
-    //give the user specified number of attempts to answer the question
-    for (var k = 0; k < gameQuestions[i].attempts-1; k++) {
-
+    //give user specified number of attempts to answer the question
+    var attempt = 1;
+    do {
       answer = entryValidator(gameQuestions[i], answer);
 
       //if the answer is a number
@@ -175,13 +172,13 @@ var guessingGame = function() {
 
         //show different prompt messages depending on how close user input was to the generated random message
         if (answer < 10) {
-          answer = prompt('Wow, ' + userName + ', you\'re really underestimating me! Try again, you have ' + ((gameQuestions[i].attempts-1)-k) + ' attempts left');
+          answer = prompt('Wow, ' + userName + ', you\'re really underestimating me! Try again, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left');
         } else if (answer > 30) {
-          answer = prompt('Wow, ' + userName + ', you\'re really overestimating me! Try again, you have ' + ((gameQuestions[i].attempts-1)-k) + ' attempts left');
+          answer = prompt('Wow, ' + userName + ', you\'re really overestimating me! Try again, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left');
         } else if (answer < gameQuestions[i].answer) {
-          answer = prompt('Pretty close, ' + userName + ', but try a bit higher, you have ' + ((gameQuestions[i].attempts-1)-k) + ' attempts left');
+          answer = prompt('Pretty close, ' + userName + ', but try a bit higher, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left');
         } else if (answer > gameQuestions[i].answer) {
-          answer = prompt('Pretty close, ' + userName + ', but try a bit lower, you have ' + ((gameQuestions[i].attempts-1)-k) + ' attempts left');
+          answer = prompt('Pretty close, ' + userName + ', but try a bit lower, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left');
         } else {
           break;
         }
@@ -208,10 +205,13 @@ var guessingGame = function() {
           break;
         } else {
           console.log('List of countries I\'ve been to: ' + gameQuestions[i].answer.join(', ') + '. User answer is - ' + answer);
-          answer = prompt('No, I haven\'t been to ' + answer + ' yet, try again, you have ' + ((gameQuestions[i].attempts-1)-k) + ' attempts left');
+          answer = prompt('No, I haven\'t been to ' + answer + ' yet, try again, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left');
         }
       }
+      attempt++;
     }
+    while (attempt < gameQuestions[i].attempts);
+
     if (Array.isArray(gameQuestions[i].answer)) {
       //if after 6 attempts no matches found - show alert with a list of array elements user tried to guess
       if (matchesFound === 0) {
