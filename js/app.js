@@ -21,6 +21,19 @@ changeNameEl.addEventListener('click', changeUserName);
 
 //***GUESSING GAME***
 
+//FUNCTIONS
+//array shuffle function (thanks to https://www.kirupa.com/html5/shuffling_array_js.htm)
+Array.prototype.shuffle = function () {
+  var input = this;
+  for (var i = input.length-1; i >=0; i--) {
+    var randomIndex = Math.floor(Math.random()*(i+1));
+    var itemAtIndex = input[randomIndex];
+    input[randomIndex] = input[i];
+    input[i] = itemAtIndex;
+  }
+  return input;
+};
+
 //user entry validator function
 function entryValidator (question, correctAnswer, answer) {
   if (typeof correctAnswer === 'string'){
@@ -35,7 +48,6 @@ function entryValidator (question, correctAnswer, answer) {
   }
   return answer;
 }
-
 
 //questions
 var marshmallowsRandom = Math.floor(Math.random() * 20) + 10;
@@ -120,22 +132,13 @@ var guessingGame = function() {
   //always start the game with 0 correct answers
   var correctAnswersCount = 0;
 
-  //iterate through the arrays of questions/answers in random order (thanks to https://www.kirupa.com/html5/shuffling_array_js.htm)
-  for (var i = gameQuestions.length-1; i >=0; i--) {
+  //shuffle the array to run questions in random order
+  var randomEl = document.getElementById('random');
+  if (randomEl.checked){
+    gameQuestions.shuffle();
+  }
 
-    //store random number between 0 and current index
-    var randomIndex = Math.floor(Math.random()*(i+1));
-
-    //store random array value in a variable for each array
-    var itemAtIndex = gameQuestions[randomIndex]; //for questions array
-
-    //swapping values of current index element and random index element
-    //random index array element gets current index element value
-    gameQuestions[randomIndex] = gameQuestions[i];
-
-    //current index array element gets random index element value
-    gameQuestions[i] = itemAtIndex;
-
+  for (var i = 0; i < gameQuestions.length; i++) {
     //prompt questions from the array, bring them lo lowercase
     var answer = prompt(gameQuestions[i].question).toLowerCase();
 
