@@ -21,94 +21,113 @@ changeNameEl.addEventListener('click', changeUserName);
 
 //***GUESSING GAME***
 
-//FUNCTIONS
-//array shuffle function (thanks to https://www.kirupa.com/html5/shuffling_array_js.htm)
+//GETTING DOM ELEMENTS:
+var playButtonEl = document.getElementById('play-game'); //play button
+var scoreEl = document.getElementById('score'); //showing score when the game is over
+var randomEl = document.getElementById('random'); //random order checkbox
+
+//FUNCTIONS:
+//ARRAY SHUFFLE FUNCTION: (thanks to https://www.kirupa.com/html5/shuffling_array_js.htm)
 Array.prototype.shuffle = function () {
-  var input = this;
-  for (var i = input.length-1; i >=0; i--) {
+  var inputArray = this;
+  for (var i = inputArray.length-1; i >=0; i--) {
     var randomIndex = Math.floor(Math.random()*(i+1));
-    var itemAtIndex = input[randomIndex];
-    input[randomIndex] = input[i];
-    input[i] = itemAtIndex;
+    var itemAtIndex = inputArray[randomIndex];
+    inputArray[randomIndex] = inputArray[i];
+    inputArray[i] = itemAtIndex;
   }
-  return input;
+  return inputArray;
 };
 
-//user entry validator function
-function entryValidator (question, correctAnswer, answer) {
+// USER ENRY VALIDATOR FUNCTION:
+function entryValidator (object, answer) {
+  var question = object.question;
+  var correctAnswer = object.answer;
+
+  // if correct answer = string - allow only yes/no answers and replace y/n with yes/no;
   if (typeof correctAnswer === 'string'){
-    while (!(answer === 'yes' || answer === 'no' || answer === 'y' || answer === 'n')) {
-      answer = prompt(' I\'m sorry, I didn\'t quite get your answer, please try again using only yes and no answers.\n' + question).toLowerCase();
+    while (!(answer === 'yes' || answer === 'no' || answer === 'y' || answer === 'n')
+    || answer === null
+    || answer === '') {
+      answer = prompt('I\'m sorry, I didn\'t quite get it, please try again using only YES and NO for the answer.\n' + question).toLowerCase();
     }
     if (answer === 'y') {
       answer = 'yes';
     } else if (answer === 'n') {
       answer = 'no';
     }
+
+    // if correct answer = number - allow only numeric answers, parseInt result;
+  } else if (!isNaN(correctAnswer)) {
+    while (isNaN(answer) || answer === null || answer === '') {
+      answer = parseInt(prompt('I\'m sorry, I didn\'t quite get it, please try again using only NUMBERS for the answer.\n' + question));
+    }
+
+  // if correct answer = array - allow only text answers, bring the answer to lowercase
+  } else if (Array.isArray(correctAnswer)) {
+    while (!isNaN(answer) || answer === null || answer === '') {
+      answer = prompt('I\'m sorry, I didn\'t quite get it, please try again using only a VALID WORD for the answer.\n' + question).toLowerCase();
+    }
   }
   return answer;
 }
 
-//questions
-var marshmallowsRandom = Math.floor(Math.random() * 20) + 10;
-
+//QUESTIONS AND ANSWERS FOR THE GAME:
+var marshmallowsRandom = Math.floor(Math.random() * 20) + 10; //random value 10..30
 var gameQuestions = [
   {
     question: 'I have a collection of 50 rare butterflies',
     answer: 'no',
     yesMessage: 'I don\'t know anything about butterflies',
     noMessage: 'I don\'t know anything about butterflies',
-    type: 1,
+    attempts: 1,
   },
   {
     question: 'I used to have 8 cats',
     answer: 'yes',
     yesMessage: 'I used to have 8 cats',
     noMessage: 'I used to have 8 cats',
-    type: 1,
+    attempts: 1,
   },
   {
     question: 'I climbed Elbrus last year',
     answer: 'no',
     yesMessage: 'I haven\'t done it just yet, but it\'s definitely on my bucket list',
     noMessage: 'I haven\'t done it just yet, but it\'s definitely on my bucket list',
-    type: 1,
+    attempts: 1,
   },
   {
     question: 'I spent 3 nights in Mojave Desert in Nevada because my car broke down',
     answer: 'no',
     yesMessage: 'I actually never been to Mojave Desert',
     noMessage: 'I actually never been to Mojave Desert',
-    type: 1,
+    attempts: 1,
   },
   {
     question: 'I jumped with parachute',
     answer: 'yes',
     yesMessage: 'I did it, and it was really cool!',
     noMessage: 'I did it, and it was really cool!',
-    type: 1,
+    attempts: 1,
   },
   {
     question: 'Try to guess how many marshmallows I can fit in my mouth. (Hint: between 10 and 30)',
     answer: marshmallowsRandom,
     yesMessage: 'Actually, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)',
     noMessage: 'Actually, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)',
-    type: 2,
+    attempts: 4,
   },
   {
     question: 'Try to guess any country I\'ve ever been to',
     answer: ['Czech Republic', 'Belarus', 'France', 'Canada', 'Germany', 'Poland', 'Lithuania', 'Latvia', 'Ukraine', 'Russia', 'Netherlands', 'Belgium', 'Moldova', 'Romania', 'Bulgaria', 'USA', 'Turkey'],
     yesMessage: 'Placeholder',
     noMessage: 'Placeholder',
-    type: 3,
+    attempts: 6,
   }
 ];
 
-//create a function that starts guessing game when play button is clicked
-var playButtonEl = document.getElementById('play-game');
-var scoreEl = document.getElementById('score');
 
-//guessing game function
+//GUESSING GAME FUNCTION:
 var guessingGame = function() {
 
   //if user name is not entered before - prompt to enter it
@@ -124,7 +143,7 @@ var guessingGame = function() {
     userNameEl.style.padding = '14px 16px';
     userNameEl2.textContent = userName;
 
-    //if name is entered before - just start the game
+  //if name is entered before - just start the game
   } else {
     alert('Welcome to the guessing game, ' + userName + '. In this game I\'ll tell you a few facts about me, try to guess whether they are true or not.');
   }
@@ -132,25 +151,21 @@ var guessingGame = function() {
   //always start the game with 0 correct answers
   var correctAnswersCount = 0;
 
-  //shuffle the array to run questions in random order
-  var randomEl = document.getElementById('random');
+  //if 'random order' checkbox checked - shuffle questions array
   if (randomEl.checked){
     gameQuestions.shuffle();
   }
 
+  //iterate through the list of questions
   for (var i = 0; i < gameQuestions.length; i++) {
-    //prompt questions from the array, bring them lo lowercase
-    var answer = prompt(gameQuestions[i].question).toLowerCase();
 
-    //if the answer is a string, allow user only yes/y or no/n answers and convert y/n to yes/no
-    answer = entryValidator(gameQuestions[i].question, gameQuestions[i].answer, answer);
+    var answer = prompt(gameQuestions[i].question);
+    answer = entryValidator(gameQuestions[i], answer); //check user entries with validator function
 
-    //if the answer is a number, allow user only numeric entries and give 4 attempts to guess the number
+    //if the answer is a number give 4 attempts to guess
     if (!isNaN(gameQuestions[i].answer)) {
       for (var k = 0; k < 3; k++) {
-        while (isNaN(answer) || answer === null || answer === '') {
-          answer = prompt('Please enter a number for the answer');
-        }
+        answer = entryValidator(gameQuestions[i], answer);
         console.log('The random generated number of marshmallows is - ' + gameQuestions[i].answer + '. User answer is - ' + answer);
 
         //show different prompt messages depending on how close user input was to the generated random message
@@ -174,12 +189,10 @@ var guessingGame = function() {
     } else if (Array.isArray(gameQuestions[i].answer)) {
       var correctCountry;
       for (var n = 0; n < 5; n++) {
-        while (!isNaN(answer) || answer === null || answer === '') {
-          answer = prompt('Please make sure you\'re entering a country');
-        }
+        answer = entryValidator(gameQuestions[i], answer);
         var matchesFound = 0;
         for (k = 0; k < gameQuestions[i].answer.length; k++) {
-          if (answer.toLowerCase() === gameQuestions[i].answer[k].toLowerCase()) {
+          if (answer === gameQuestions[i].answer[k].toLowerCase()) {
             matchesFound++;
             correctCountry = gameQuestions[i].answer[k];
             break;
