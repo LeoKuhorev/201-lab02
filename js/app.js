@@ -113,8 +113,8 @@ var gameQuestions = [
   {
     question: 'Try to guess how many marshmallows I can fit in my mouth. (Hint: between 10 and 30)',
     answer: marshmallowsRandom,
-    yesMessage: 'Actually, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)',
-    noMessage: 'Actually, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)',
+    yesMessage: 'you git it! Actually, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)',
+    noMessage: 'you\'re out of attempts. Actually, I\'ve never tried to count it, and the answer is just a random number (which by the way was ' + marshmallowsRandom + ' this time), but good guess anyways! :-)',
     attempts: 4,
   },
   {
