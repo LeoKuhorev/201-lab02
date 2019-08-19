@@ -26,6 +26,8 @@ var playButtonEl = document.getElementById('play-game'); //play button
 var scoreEl = document.getElementById('score'); //showing score when the game is over
 var randomEl = document.getElementById('random'); //random order checkbox
 
+var correctAnswersCount;
+
 //FUNCTIONS:
 //ARRAY SHUFFLE FUNCTION: (thanks to https://www.kirupa.com/html5/shuffling_array_js.htm)
 Array.prototype.shuffle = function () {
@@ -56,13 +58,11 @@ function entryValidator (object, answer) {
     } else if (answer === 'n') {
       answer = 'no';
     }
-
-    // if correct answer = number - allow only numeric answers, parseInt result;
+  // if correct answer = number - allow only numeric answers, parseInt result;
   } else if (!isNaN(correctAnswer)) {
     while (isNaN(answer) || answer === null || answer === '') {
       answer = parseInt(prompt('I\'m sorry, I didn\'t quite get it, please try again using only NUMBERS for the answer.\n' + question));
     }
-
   // if correct answer = array - allow only text answers, bring the answer to lowercase
   } else if (Array.isArray(correctAnswer)) {
     while (!isNaN(answer) || answer === null || answer === '') {
@@ -78,36 +78,36 @@ var gameQuestions = [
   {
     question: 'I have a collection of 50 rare butterflies',
     answer: 'no',
-    yesMessage: 'I don\'t know anything about butterflies',
-    noMessage: 'I don\'t know anything about butterflies',
+    yesMessage: 'you\'re absolutely right, I don\'t. Honestly, I don\'t know anything about butterflies',
+    noMessage: 'I don\'t, Honestly, I don\'t know anything about butterflies at all',
     attempts: 1,
   },
   {
     question: 'I used to have 8 cats',
     answer: 'yes',
-    yesMessage: 'I used to be a volunteer and take care of stray animals, so there were times when we had a lot of them at our house',
-    noMessage: 'I used to be a volunteer and take care of stray animals, so there were times when we had a lot of them at our house',
+    yesMessage: 'you\'re absolutely right, I used to be a volunteer and take care of stray animals, so there were times when we had a lot of them at our house',
+    noMessage: 'you\'re not right, I used to be a volunteer and take care of stray animals, so there were times when we had a lot of them at our house',
     attempts: 1,
   },
   {
     question: 'I climbed Elbrus last year',
     answer: 'no',
-    yesMessage: 'I haven\'t done it just yet, but it\'s definitely on my bucket list',
-    noMessage: 'I haven\'t done it just yet, but it\'s definitely on my bucket list',
+    yesMessage: 'you\'re right, I haven\'t done it just yet, but it\'s definitely on my bucket list',
+    noMessage: 'I wish I could say that you\'re right, but I haven\'t done it just yet, it\'s definitely on my bucket list, though',
     attempts: 1,
   },
   {
     question: 'I spent 3 nights in Mojave Desert in Nevada because my car broke down',
     answer: 'no',
-    yesMessage: 'I actually never been to Mojave Desert',
-    noMessage: 'I actually never been to Mojave Desert',
+    yesMessage: 'you\'re absolutely right, I totally made it up. Actually I\'ve never been to Mojave Desert',
+    noMessage: 'this is not correct, I totally made it up. Actually I\'ve never been to Mojave Desert',
     attempts: 1,
   },
   {
     question: 'I jumped with parachute',
     answer: 'yes',
-    yesMessage: 'I did it, and it was really cool!',
-    noMessage: 'I did it, and it was really cool!',
+    yesMessage: 'you\'re right, I did it, and it was really cool!',
+    noMessage: 'you\'re not right, I actually did it, and it was really cool!',
     attempts: 1,
   },
   {
@@ -149,7 +149,7 @@ var guessingGame = function() {
   }
 
   //always start the game with 0 correct answers
-  var correctAnswersCount = 0;
+  correctAnswersCount = 0;
 
   //if 'random order' checkbox checked - shuffle questions array
   if (randomEl.checked){
@@ -164,28 +164,26 @@ var guessingGame = function() {
     //give user specified number of attempts to answer the question
     var attempt = 1;
     do {
-      answer = entryValidator(gameQuestions[i], answer);
+      answer = entryValidator(gameQuestions[i], answer); //check user answer with entryValidator function
 
       //if the answer is a number
       if (!isNaN(gameQuestions[i].answer)) {
         console.log('The number is - ' + gameQuestions[i].answer + '. User answer is - ' + answer);
 
         //show different prompt messages depending on how close user input was to the generated random message
-        if (answer < 10) {
-          answer = prompt('Wow, ' + userName + ', you\'re really underestimating me! Try again, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left');
-        } else if (answer > 30) {
-          answer = prompt('Wow, ' + userName + ', you\'re really overestimating me! Try again, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left');
+        if (answer < 0.5 * gameQuestions[i].answer) {
+          answer = parseInt(prompt('Wow, ' + userName + ', this is way too low! Try again, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left'));
+        } else if (answer > 2 * gameQuestions[i].answer) {
+          answer = parseInt(prompt('Wow, ' + userName + ', this is way too high! Try again, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left'));
         } else if (answer < gameQuestions[i].answer) {
-          answer = prompt('Pretty close, ' + userName + ', but try a bit higher, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left');
+          answer = parseInt(prompt('Pretty close, ' + userName + ', but try a bit higher, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left'));
         } else if (answer > gameQuestions[i].answer) {
-          answer = prompt('Pretty close, ' + userName + ', but try a bit lower, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left');
+          answer = parseInt(prompt('Pretty close, ' + userName + ', but try a bit lower, you have ' + (gameQuestions[i].attempts-attempt) + ' attempts left'));
         } else {
           break;
         }
-        //convert user entry into number to be able to use '===' rather than '=='
-        answer = parseInt(answer);
 
-      //if the answer is an array
+      //if the answer is an array check if user answer matches any array element
       } else if (Array.isArray(gameQuestions[i].answer)) {
         var correctCountry;
         var matchesFound = 0;
@@ -197,11 +195,11 @@ var guessingGame = function() {
           }
         }
 
-        //if user entry matches any array element form the array - exit the loop and show alert with list of all array elements
+        //if user entry matches any array element - exit the loop and show alert with list of all array elements
         if (matchesFound > 0) {
           alert('Yay ' + userName + ', you\'re absolutely right! I\'ve been to ' + correctCountry + ' indeed. Here\'s the list of countries I visited: ' + gameQuestions[i].answer.join(', '));
           correctAnswersCount++;
-          console.log('Question ' + (gameQuestions.length - i) + ': "' + gameQuestions[i].question + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + gameQuestions.length);
+          console.log('Question ' + (i+1) + ': "' + gameQuestions[i].question + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + gameQuestions.length);
           break;
         } else {
           console.log('List of countries I\'ve been to: ' + gameQuestions[i].answer.join(', ') + '. User answer is - ' + answer);
@@ -217,19 +215,19 @@ var guessingGame = function() {
       if (matchesFound === 0) {
         alert('Ooops, you\'re out of attempts, don\'t worry, you\'ll be more lucky next time! By the way, here\'s the list of countries I visited: ' + gameQuestions[i].answer.join(', '));
       }
-
-    //checking if answers are correct for string and numeric types of answers
-    } else if (!Array.isArray(gameQuestions[i].answer)) {
-      if (answer === gameQuestions[i].answer) {
-        alert('Yay ' + userName + ', you\'re absolutely right! ' + gameQuestions[i].yesMessage);
-        correctAnswersCount++;
-      } else {
-        alert('Nope ' + userName + ', not really, ' + gameQuestions[i].noMessage);
-      }
-      console.log('Question ' + (gameQuestions.length - i) +': "' + gameQuestions[i].question + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + gameQuestions.length);
     }
-  }
+    //checking if answers are correct for string and numeric types of answers
+    if (!Array.isArray(gameQuestions[i].answer)) {
+      if (answer === gameQuestions[i].answer) {
+        alert('Yay ' + userName + ', ' + gameQuestions[i].yesMessage);
+      correctAnswersCount++;
+    } else {
+      alert('Nope ' + userName + ', ' + gameQuestions[i].noMessage);
+    }
+      console.log('Question ' + (i+1) +': "' + gameQuestions[i].question + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + gameQuestions.length);
+    }
 
+  }
   //notifying user about the game score
   if(correctAnswersCount > 0.8*gameQuestions.length) {
     alert('Congratulations ' + userName + '! You\'ve got ' + correctAnswersCount + ' out of ' + gameQuestions.length + ' correct answers. Seems that you know me pretty well!');
