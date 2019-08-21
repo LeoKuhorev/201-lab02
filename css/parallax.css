@@ -1,0 +1,10 @@
+#first {
+  background-image: url("images/resize_960/parallax_01.jpg");
+}
+
+.parallax {
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  height: 150px;
+}
