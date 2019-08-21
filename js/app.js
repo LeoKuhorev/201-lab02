@@ -222,10 +222,10 @@ var guessingGame = function() {
     if (!Array.isArray(gameQuestions[i].answer)) {
       if (answer === gameQuestions[i].answer) {
         alert('Yay ' + userName + ', ' + gameQuestions[i].yesMessage);
-      correctAnswersCount++;
-    } else {
-      alert('Nope ' + userName + ', ' + gameQuestions[i].noMessage);
-    }
+        correctAnswersCount++;
+      } else {
+        alert('Nope ' + userName + ', ' + gameQuestions[i].noMessage);
+      }
       console.log('Question ' + (i+1) +': "' + gameQuestions[i].question + '". User answer: ' + answer + ' . Correct answers: '+ correctAnswersCount + ' out of ' + gameQuestions.length);
     }
 
