@@ -11,10 +11,10 @@
 ![Google accessibility tool](images/20190813.jpg)
 
 
-Thanks to [www.w3schools.com](https://www.w3schools.com/) for the js [random](https://www.w3schools.com/js/js_random.asp) and [css nav bar](https://www.w3schools.com/howto/howto_css_dropdown.asp) tutorials
+Thanks to [w3schools.com](https://www.w3schools.com/) for the js [random](https://www.w3schools.com/js/js_random.asp) and [css nav bar](https://www.w3schools.com/howto/howto_css_dropdown.asp) tutorials
 
-Thanks to [www.geeksforgeeks.org](https://www.geeksforgeeks.org) for the [array.join()](https://www.geeksforgeeks.org/javascript-array-join-method/) and [parseInt()](https://www.geeksforgeeks.org/string-to-integer-in-java-parseint/) methods
+Thanks to [geeksforgeeks.org](https://www.geeksforgeeks.org) for the [array.join()](https://www.geeksforgeeks.org/javascript-array-join-method/) and [parseInt()](https://www.geeksforgeeks.org/string-to-integer-in-java-parseint/) methods
 
-Thanks to [www.kirupa.com](https://www.kirupa.com) for the [array shuffle tutorial](https://www.kirupa.com/html5/shuffling_array_js.htm)
+Thanks to [kirupa.com](https://www.kirupa.com) for the [array shuffle tutorial](https://www.kirupa.com/html5/shuffling_array_js.htm)
 
-Thanks to [To13](https://www.khanacademy.org/profile/epophoney13/) from[www.khanacademy.org/](https://www.khanacademy.org/) for the [parallax tutorial](https://www.khanacademy.org/computer-programming/parallax-scroll-effect-css/6010241287487488)
+Thanks to [To13](https://www.khanacademy.org/profile/epophoney13/) from[khanacademy.org](https://www.khanacademy.org/) for the [parallax tutorial](https://www.khanacademy.org/computer-programming/parallax-scroll-effect-css/6010241287487488)
