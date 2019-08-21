@@ -26,7 +26,9 @@ var playButtonEl = document.getElementById('play-game'); //play button
 var scoreEl = document.getElementById('score'); //showing score when the game is over
 var randomEl = document.getElementById('random'); //random order checkbox
 
+//declaring global variables
 var correctAnswersCount;
+var answer;
 
 //FUNCTIONS:
 //ARRAY SHUFFLE FUNCTION: (thanks to https://www.kirupa.com/html5/shuffling_array_js.htm)
@@ -41,8 +43,8 @@ Array.prototype.shuffle = function () {
   return inputArray;
 };
 
-// USER ENRY VALIDATOR FUNCTION:
-function entryValidator (object, answer) {
+// USER ENTRY VALIDATOR FUNCTION:
+function entryValidator (object) {
   var question = object.question;
   var correctAnswer = object.answer;
 
@@ -159,12 +161,12 @@ var guessingGame = function() {
   //iterate through the list of questions
   for (var i = 0; i < gameQuestions.length; i++) {
 
-    var answer = prompt(gameQuestions[i].question).toLowerCase();
+    answer = prompt(gameQuestions[i].question).toLowerCase();
 
     //give user specified number of attempts to answer the question
     var attempt = 1;
     do {
-      answer = entryValidator(gameQuestions[i], answer); //check user answer with entryValidator function
+      answer = entryValidator(gameQuestions[i]); //check user answer with entryValidator function
 
       //if the answer is a number
       if (!isNaN(gameQuestions[i].answer)) {
