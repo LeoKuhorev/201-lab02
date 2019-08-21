@@ -1,0 +1,45 @@
+#container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#first {
+  background-image: url("/images/parallax/parallax_01.jpg");
+}
+#second {
+  background-image: url("/images/parallax/parallax_02.jpg");
+}
+#third {
+  background-image: url("/images/parallax/parallax_03.jpg");
+}
+#fourth {
+  background-image: url("/images/parallax/parallax_04.jpg");
+}
+#fifth {
+  background-image: url("/images/parallax/parallax_05.jpg");
+}
+#sixth {
+  background-image: url("/images/parallax/parallax_06.jpg");
+}
+#seventh {
+  background-image: url("/images/parallax/parallax_07.jpg");
+}
+#eigth {
+  background-image: url("/images/parallax/parallax_08.jpg");
+}
+.parallax {
+  width: 100%;
+  height: 450px;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-size: 24pt;
+  text-align: center;
+  color: white;
+  padding-top: 350px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+footer {
+  position: fixed;
+  bottom: 0;
+}
