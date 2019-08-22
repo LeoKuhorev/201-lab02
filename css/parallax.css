@@ -4,13 +4,13 @@
   margin-right: auto;
 }
 #first {
-  background-image: url("/images/parallax/parallax_01.jpg");
+  background-image: url("../images/parallax/parallax_01.jpg");
 }
 #second {
-  background-image: url("/images/parallax/parallax_02.jpg");
+  background-image: url("images/parallax/parallax_02.jpg");
 }
 #third {
-  background-image: url("/images/parallax/parallax_03.jpg");
+  background-image: url("images/parallax/parallax_03.jpg");
 }
 #fourth {
   background-image: url("/images/parallax/parallax_04.jpg");
