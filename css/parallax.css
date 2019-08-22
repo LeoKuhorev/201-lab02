@@ -7,25 +7,25 @@
   background-image: url("../images/parallax/parallax_01.jpg");
 }
 #second {
-  background-image: url("images/parallax/parallax_02.jpg");
+  background-image: url("../images/parallax/parallax_02.jpg");
 }
 #third {
-  background-image: url("images/parallax/parallax_03.jpg");
+  background-image: url("../images/parallax/parallax_03.jpg");
 }
 #fourth {
-  background-image: url("/images/parallax/parallax_04.jpg");
+  background-image: url("../images/parallax/parallax_04.jpg");
 }
 #fifth {
-  background-image: url("/images/parallax/parallax_05.jpg");
+  background-image: url("../images/parallax/parallax_05.jpg");
 }
 #sixth {
-  background-image: url("/images/parallax/parallax_06.jpg");
+  background-image: url("../images/parallax/parallax_06.jpg");
 }
 #seventh {
-  background-image: url("/images/parallax/parallax_07.jpg");
+  background-image: url("../images/parallax/parallax_07.jpg");
 }
 #eigth {
-  background-image: url("/images/parallax/parallax_08.jpg");
+  background-image: url("../images/parallax/parallax_08.jpg");
 }
 .parallax {
   width: 100%;
