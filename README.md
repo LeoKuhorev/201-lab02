@@ -1,6 +1,8 @@
 # 201-lab02
 ## Welcome to my Code Fellows 201 Lab 02 project
 
+LInk to deployed site: https://leokuhorev.github.io/201-lab02/
+
 ### Short features description:
 - on the main page you can enter user name in the top right corner (unfortunately it won't be saved after you refresh the page);
 - if you want to find out more facts about me you can play a funny question game. To do that just click on "play" button and follow the prompts;
